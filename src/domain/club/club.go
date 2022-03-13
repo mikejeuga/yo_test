@@ -10,6 +10,10 @@ type Club struct {
 	Players []models.Player
 }
 
+const (
+	StartingPoints = 1200
+)
+
 func NewClub() *Club {
 	var players []models.Player
 	return &Club{Players: players}
@@ -25,6 +29,8 @@ func (c *Club) Add(player models.Player) error {
 	if err != nil {
 		return err
 	}
+
+	player.Score(StartingPoints)
 
 	c.Players = append(c.Players, player)
 	return nil

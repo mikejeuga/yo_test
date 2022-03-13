@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestClubRules(t *testing.T) {
+func TestClub(t *testing.T) {
 	is := is.New(t)
 	t.Run("2 players with the same first and last name cannot be registered into the club", func(t *testing.T) {
 		player1 := models.Player{
@@ -55,5 +55,23 @@ func TestClubRules(t *testing.T) {
 		err := ratpClub.Add(player1)
 
 		is.Equal(err.Error(), "this player is too young to be part of the club")
+	})
+
+	t.Run("registered player should start with the score of 1200 points", func(t *testing.T) {
+		player := models.Player{
+			FirstName:   "Zinedine",
+			LastName:    "Zidane",
+			Nationality: "FR",
+			DoB: models.Date{
+				Day:   20,
+				Month: 3,
+				Year:  1974,
+			},
+		}
+		wtaClub := club.NewClub()
+		err := wtaClub.Add(player)
+
+		is.NoErr(err)
+		is.Equal(wtaClub.Players[0].Points, club.StartingPoints)
 	})
 }
