@@ -16,15 +16,32 @@ func NewClub() *Club {
 }
 
 func (c *Club) Add(player models.Player) error {
+	err := checkAge(player)
+	if err != nil {
+		return err
+	}
+
+	err = c.checkIdentity(player)
+	if err != nil {
+		return err
+	}
+
+	c.Players = append(c.Players, player)
+	return nil
+}
+
+func checkAge(player models.Player) error {
 	if (time.Now().Year() - player.DoB.Year) < 16 || (time.Now().Year() - player.DoB.Year) == 16 && time.Now().Month() > player.DoB.Month  {
 		return fmt.Errorf("this player is too young to be part of the club")
 	}
+	return nil
+}
+
+func (c *Club)checkIdentity(player models.Player) error {
 	for _, member := range c.Players {
 		if member.FirstName == player.FirstName && member.LastName == player.LastName {
 			return fmt.Errorf("this player is already registered")
 		}
 	}
-	c.Players = append(c.Players, player)
 	return nil
 }
-
