@@ -1,4 +1,4 @@
-#Tennis Club API
+# Tennis Club API
 
 ## 1 - An endpoint for registering a new player into the club
 #### a. The only required data for registration is the player's first name and last name, nationality and the date of birth.
