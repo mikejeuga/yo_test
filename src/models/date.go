@@ -1,8 +1,11 @@
 package models
 
+import (
+	"time"
+)
 
 type Date struct {
 	Day int
-	Month int
-	Yeat int
+	Month time.Month
+	Year  int
 }

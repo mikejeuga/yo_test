@@ -17,7 +17,7 @@ func TestClubRules(t *testing.T) {
 			DoB: models.Date{
 				Day:   20,
 				Month: 7,
-				Yeat:  1974,
+				Year:  1974,
 			},
 		}
 
@@ -28,7 +28,7 @@ func TestClubRules(t *testing.T) {
 			DoB: models.Date{
 				Day:   15,
 				Month: 11,
-				Yeat:  1979,
+				Year:  1979,
 			},
 		}
 
@@ -37,5 +37,23 @@ func TestClubRules(t *testing.T) {
 		_ = tennisClub.Add(player2)
 
 		is.Equal(len(tennisClub.Players), 1)
+	})
+
+	t.Run("No player can be less than 16 year's old", func(t *testing.T) {
+		player1 := models.Player{
+			FirstName:   "Harry",
+			LastName:    "Potter",
+			Nationality: "UK",
+			DoB: models.Date{
+				Day:   20,
+				Month: 10,
+				Year:  2012,
+			},
+		}
+
+		ratpClub := club.NewClub()
+		err := ratpClub.Add(player1)
+
+		is.Equal(err.Error(), "this player is too young to be part of the club")
 	})
 }
