@@ -10,9 +10,10 @@ type Club struct {
 	Players []models.Player
 }
 
-const (
-	StartingPoints = 1200
-)
+type TennisClub interface {
+	Add(player models.Player) error
+}
+
 
 func NewClub() *Club {
 	var players []models.Player
@@ -30,7 +31,7 @@ func (c *Club) Add(player models.Player) error {
 		return err
 	}
 
-	player.Score(StartingPoints)
+	player.Score(models.StartingPoints)
 
 	c.Players = append(c.Players, player)
 	return nil

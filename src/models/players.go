@@ -1,5 +1,9 @@
 package models
 
+const (
+	StartingPoints = 1200
+)
+
 type Player struct {
 	FirstName   string
 	LastName    string

@@ -72,6 +72,6 @@ func TestClub(t *testing.T) {
 		err := wtaClub.Add(player)
 
 		is.NoErr(err)
-		is.Equal(wtaClub.Players[0].Points, club.StartingPoints)
+		is.Equal(wtaClub.Players[0].Points, models.StartingPoints)
 	})
 }
