@@ -50,6 +50,8 @@ func TestClubServer(t *testing.T) {
 		server.Handler.ServeHTTP(res,req)
 
 		is.Equal(res.Code, http.StatusCreated)
+		is.Equal(tennisClub.Players[0].FirstName, "Zinedine")
+		is.Equal(tennisClub.Players[0].Points, models.StartingPoints)
 
 	})
 }
