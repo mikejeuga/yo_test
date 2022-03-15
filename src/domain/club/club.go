@@ -6,12 +6,12 @@ import (
 	"time"
 )
 
-type Club struct {
-	Players []models.Player
-}
-
 type TennisClub interface {
 	Add(player models.Player) error
+}
+
+type Club struct {
+	Players []models.Player
 }
 
 
