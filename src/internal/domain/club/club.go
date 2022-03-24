@@ -16,7 +16,6 @@ type Club struct {
 
 type TennisClubStore interface {
 	AddPlayer(player models.Player)
-	IsPlayerRegistered(player models.Player) error
 	GetPlayers() []models.Player
 }
 
@@ -30,9 +29,8 @@ func (c *Club) Add(player models.Player) error {
 		return err
 	}
 
-	err = c.PlayerStore.IsPlayerRegistered(player)
-	if err != nil {
-		return err
+	if c.hasRegistered(player) {
+		return fmt.Errorf("This player is already a member of the club")
 	}
 
 	player.Score(models.StartingPoints)
@@ -43,6 +41,15 @@ func (c *Club) Add(player models.Player) error {
 
 func (c *Club) GetPlayers() []models.Player {
 	return c.PlayerStore.GetPlayers()
+}
+
+func (c *Club) hasRegistered(player models.Player) bool {
+	for _, member := range c.PlayerStore.GetPlayers() {
+		if member.FirstName == player.FirstName && member.LastName == player.LastName {
+			return true
+		}
+	}
+	return false
 }
 
 func checkAge(player models.Player) error {

@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  club-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    networks:
+      - default
+    ports:
+      - "8095:8095"
+
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5435:5435"
+    volumes:
+      - data:/var/lib/postgresql/data
+
+volumes:
+ data:
