@@ -3,14 +3,14 @@ package club_test
 import (
 	"github.com/matryer/is"
 	models2 "github.com/mikejeuga/yo_test/models"
-	"github.com/mikejeuga/yo_test/src/internal/adapters/tennisclubstore"
+	"github.com/mikejeuga/yo_test/src/internal/adapters/postgresql"
 	"github.com/mikejeuga/yo_test/src/internal/domain/club"
 	"testing"
 )
 
 func TestClub(t *testing.T) {
 	is := is.New(t)
-	var testInMemoryClubStore tennisclubstore.InMemoryClubStore
+	var testInMemoryClubStore postgresql.InMemoryClubStore
 	t.Run("2 players with the same first and last name cannot be registered into the club", func(t *testing.T) {
 		player1 := models2.Player{
 			FirstName:   "Pete",

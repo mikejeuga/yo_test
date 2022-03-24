@@ -6,7 +6,7 @@ import (
 	"github.com/matryer/is"
 	models2 "github.com/mikejeuga/yo_test/models"
 	"github.com/mikejeuga/yo_test/src/internal/adapters/http/server"
-	"github.com/mikejeuga/yo_test/src/internal/adapters/tennisclubstore"
+	"github.com/mikejeuga/yo_test/src/internal/adapters/postgresql"
 	"github.com/mikejeuga/yo_test/src/internal/domain/club"
 	"net/http"
 	"net/http/httptest"
@@ -15,7 +15,7 @@ import (
 
 func TestClubServer(t *testing.T) {
 	is := is.New(t)
-	var testInMemoryClubStore tennisclubstore.InMemoryClubStore
+	var testInMemoryClubStore postgresql.InMemoryClubStore
 	t.Run("The club server is Healthy", func(t *testing.T) {
 		club := club.NewClub(&testInMemoryClubStore)
 		clubServer := server.NewServer(club)
