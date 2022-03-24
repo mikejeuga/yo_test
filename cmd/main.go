@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/mikejeuga/yo_test/src/domain/club"
-	"github.com/mikejeuga/yo_test/src/server"
+	"github.com/mikejeuga/yo_test/src/internal/adapters/http/server"
+	"github.com/mikejeuga/yo_test/src/internal/domain/club"
 	"log"
 )
 

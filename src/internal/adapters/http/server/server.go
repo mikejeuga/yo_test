@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
-	"github.com/mikejeuga/yo_test/src/domain/club"
-	"github.com/mikejeuga/yo_test/src/models"
+	"github.com/mikejeuga/yo_test/models"
+	"github.com/mikejeuga/yo_test/src/internal/domain/club"
 	"io"
 	"net/http"
 )
@@ -23,7 +23,7 @@ func NewServer(tennisClub club.TennisClub) *http.Server {
 	r.HandleFunc("/register", clubServer.register).Methods(http.MethodPost)
 
 	return &http.Server{
-		Addr: ":8095",
+		Addr:    ":8095",
 		Handler: r,
 	}
 }
@@ -48,10 +48,8 @@ func (s *ClubServer) register(w http.ResponseWriter, r *http.Request) {
 
 	err = s.club.Add(player)
 	if err != nil {
-		fmt.Errorf("%v",err)
+		fmt.Errorf("%v", err)
 	}
 
 	w.WriteHeader(http.StatusCreated)
 }
-
-

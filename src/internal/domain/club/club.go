@@ -1,0 +1,53 @@
+package club
+
+import (
+	"fmt"
+	"github.com/mikejeuga/yo_test/models"
+	"time"
+)
+
+type TennisClub interface {
+	Add(player models.Player) error
+}
+
+type Club struct {
+	PlayerStore TennisClubStore
+}
+
+type TennisClubStore interface {
+	AddPlayer(player models.Player)
+	IsPlayerRegistered(player models.Player) error
+	GetPlayers() []models.Player
+}
+
+func NewClub(clubStore TennisClubStore) *Club {
+	return &Club{PlayerStore: clubStore}
+}
+
+func (c *Club) Add(player models.Player) error {
+	err := checkAge(player)
+	if err != nil {
+		return err
+	}
+
+	err = c.PlayerStore.IsPlayerRegistered(player)
+	if err != nil {
+		return err
+	}
+
+	player.Score(models.StartingPoints)
+
+	c.PlayerStore.AddPlayer(player)
+	return nil
+}
+
+func (c *Club) GetPlayers() []models.Player {
+	return c.PlayerStore.GetPlayers()
+}
+
+func checkAge(player models.Player) error {
+	if (time.Now().Year()-player.DoB.Year) < 16 || (time.Now().Year()-player.DoB.Year) == 16 && time.Now().Month() > player.DoB.Month {
+		return fmt.Errorf("this player is too young to be part of the club")
+	}
+	return nil
+}
