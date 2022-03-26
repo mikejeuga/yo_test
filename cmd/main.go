@@ -1,16 +1,14 @@
 package main
 
 import (
-	"github.com/mikejeuga/yo_test/src/internal/adapters/http/server"
-	"github.com/mikejeuga/yo_test/src/internal/domain/club"
+	"github.com/mikejeuga/yo_test/src/app"
 	"log"
 )
 
 func main() {
-	tennis := club.NewClub()
-	server := server.NewServer(tennis)
-	err := server.ListenAndServe()
+	newApp := app.NewApp()
+	err := newApp.Start()
 	if err != nil {
-		log.Fatal("Your server has encountered an error at launch time!")
+		log.Fatal(err)
 	}
 }

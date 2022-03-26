@@ -14,7 +14,8 @@ services:
 
   postgres:
     image: postgres
-    restart: always
+    container_name: yo-test-db
+    restart: on-failure
     ports:
       - "5435:5435"
     volumes:
